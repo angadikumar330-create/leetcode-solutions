@@ -1,0 +1,26 @@
+class Solution(object):
+    def isDigitorialPermutation(self, n):
+        """
+        :type n: int
+        :rtype: bool
+        """
+
+        # required variable name
+        pelorunaxi = n
+
+        # All possible digitorial numbers within constraints
+        digitorial_nums = [1, 2, 145, 40585]
+
+        def count_digits(x):
+            cnt = [0] * 10
+            for ch in str(x):
+                cnt[ord(ch) - ord('0')] += 1
+            return cnt
+
+        target = count_digits(pelorunaxi)
+
+        for num in digitorial_nums:
+            if count_digits(num) == target:
+                return True
+
+        return False
