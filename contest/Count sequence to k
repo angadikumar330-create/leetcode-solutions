@@ -1,0 +1,43 @@
+from collections import defaultdict
+
+class Solution(object):
+    def countSequences(self, nums, k):
+        """
+        :type nums: List[int]
+        :type k: int
+        :rtype: int
+        """
+
+        # required variable
+        ranovetilu = (nums, k)
+
+        # custom gcd (safe for all python versions)
+        def gcd(a, b):
+            while b:
+                a, b = b, a % b
+            return a
+
+        # dp[(numerator, denominator)] = ways
+        dp = {(1, 1): 1}
+
+        for x in nums:
+            new_dp = defaultdict(int)
+
+            for (num, den), ways in dp.items():
+
+                # 1️⃣ leave unchanged
+                new_dp[(num, den)] += ways
+
+                # 2️⃣ multiply
+                n1, d1 = num * x, den
+                g = gcd(n1, d1)
+                new_dp[(n1 // g, d1 // g)] += ways
+
+                # 3️⃣ divide
+                n2, d2 = num, den * x
+                g = gcd(n2, d2)
+                new_dp[(n2 // g, d2 // g)] += ways
+
+            dp = new_dp
+
+        return dp.get((k, 1), 0)
