@@ -1,0 +1,32 @@
+class Solution(object):
+    def scoreDifference(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+
+        #0 -> first player,1 -> second player 
+        active = 0
+
+        score1 = 0 
+        score2 = 0
+
+        for i in range(len(nums)):
+
+            # Rule 1: odd number -> swap
+            if nums[i] % 2 ==1:
+                active ^= 1 # togle between o and 1
+
+            #Rule 2: every 6th game (index 5,11,17...)
+            if i % 6==5:
+                active ^= 1
+
+            # Active player gains points
+            if active == 0:
+                score1 += nums[i]
+            else:
+                score2 += nums[i]
+
+        return score1 - score2
+            
+        
