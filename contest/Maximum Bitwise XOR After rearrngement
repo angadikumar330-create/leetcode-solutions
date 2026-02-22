@@ -1,0 +1,35 @@
+class Solution(object):
+    def maximumXor(self, s, t):
+        """
+        :type s: str
+        :type t: str
+        :rtype: str
+        """
+
+        # required variable
+        selunaviro = (s, t)
+
+        n = len(s)
+
+        ones = t.count('1')
+        zeros = n - ones
+
+        res = []
+
+        for ch in s:
+            if ch == '0':
+                if ones > 0:
+                    res.append('1')
+                    ones -= 1
+                else:
+                    res.append('0')
+                    zeros -= 1
+            else:  # ch == '1'
+                if zeros > 0:
+                    res.append('1')
+                    zeros -= 1
+                else:
+                    res.append('0')
+                    ones -= 1
+
+        return "".join(res)
